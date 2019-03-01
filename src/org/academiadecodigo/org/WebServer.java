@@ -36,6 +36,7 @@ public class WebServer {
             client = serverSocket.accept();
             System.out.println("Connected");
             streams();
+            client.close();
 
         }
 
@@ -50,8 +51,8 @@ public class WebServer {
 
         dataOut = new DataOutputStream(client.getOutputStream());
 
-
         dataWrite();
+
 
     }
 
@@ -96,6 +97,7 @@ public class WebServer {
                 dataOut.write(fileContent);
             }
 
+
         } else {
 
             file = new File("www/404Error.html");
@@ -117,19 +119,12 @@ public class WebServer {
 
     }
 
-
-    public static void main(String[] args) throws IOException {
-        new WebServer(8080);
-
-    }
-
     public String pathRequest() {
         String[] arr;
         arr = getRequest.split(" ");
         System.out.println(arr[1]);
         path = arr[1];
         return arr[1];
-
     }
 
     public String extension() {
@@ -171,5 +166,10 @@ public class WebServer {
 
     }
 
+
+    public static void main(String[] args) throws IOException {
+        new WebServer(8080);
+
+    }
 
 }
